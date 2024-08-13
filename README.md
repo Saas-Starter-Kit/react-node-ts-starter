@@ -1,1 +1,1 @@
-# vite-react-ts-starter-
+# vite-react-ts-starter
