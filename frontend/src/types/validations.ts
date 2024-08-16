@@ -5,6 +5,9 @@ export const todoFormSchema = z.object({
     .string({
       required_error: 'Please enter a Title.'
     })
+    .min(3, {
+      message: 'Title must be at least 3 characters'
+    })
     .max(30, {
       message: 'Title must not be longer than 30 characters.'
     }),

@@ -45,13 +45,13 @@ export default function TodosCreateForm() {
       throw err;
     }
 
-    reset({ title: '', description: '' });
     toast.success('Todo Submitted');
+    reset({ title: '', description: '' });
   };
 
   return (
-    <div>
-      <Card className="bg-background-light dark:bg-background-dark">
+    <div className="grid justify-center items-center mt-8">
+      <Card className="bg-background-light dark:bg-background-dark w-96">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">New Todo</CardTitle>
           <CardDescription>Create a Todo with Title and Description</CardDescription>
@@ -65,7 +65,7 @@ export default function TodosCreateForm() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormMessage /> <FormLabel>Title</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input
                         {...register('title')}
@@ -74,6 +74,7 @@ export default function TodosCreateForm() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />

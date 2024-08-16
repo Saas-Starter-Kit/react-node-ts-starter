@@ -1,13 +1,5 @@
 // src/components/NavHeader.tsx
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuLink
-} from '@radix-ui/react-navigation-menu';
-import { cn } from '@/utils/helpers';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from './ui/NavigationMenu';
 import { Link, NavLink } from 'react-router-dom';
 
 type NavLink = {
@@ -36,7 +28,7 @@ export function HeaderNav({ links }: NavHeaderProps) {
                     return isActive ? 'text-red-400' : 'text-black';
                   }}
                 >
-                  <NavigationMenuLink>{link.name}</NavigationMenuLink>
+                  {link.name}
                 </NavLink>
               </NavigationMenuItem>
             ))}
