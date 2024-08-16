@@ -11,7 +11,7 @@ const TodoListPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1>Todos:</h1>
+      <h1 className="text-2xl font-bold mt-8">Todos:</h1>
       {isLoading && <div>...Loading</div>}
       {!isLoading && data?.length === 0 && <div>None Found</div>}
       {error && <div>{error.message} </div>}

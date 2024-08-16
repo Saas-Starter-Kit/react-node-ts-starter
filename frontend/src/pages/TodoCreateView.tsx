@@ -51,7 +51,7 @@ export default function TodosCreateForm() {
 
   return (
     <div className="grid justify-center items-center mt-8">
-      <Card className="bg-background-light dark:bg-background-dark w-96">
+      <Card className="w-96">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">New Todo</CardTitle>
           <CardDescription>Create a Todo with Title and Description</CardDescription>
@@ -67,12 +67,7 @@ export default function TodosCreateForm() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input
-                        {...register('title')}
-                        type="text"
-                        className="bg-background-light dark:bg-background-dark"
-                        {...field}
-                      />
+                      <Input {...register('title')} type="text" className="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -85,10 +80,7 @@ export default function TodosCreateForm() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea
-                        className="bg-background-light dark:bg-background-dark"
-                        {...field}
-                      />
+                      <Textarea className="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

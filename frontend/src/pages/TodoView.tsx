@@ -1,28 +1,27 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { fetchOneTodo } from '@/api/todo';
 
+import { useTodo } from '@/hooks/useTodo';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 
 const TodoViewPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { isPending, error, data } = useQuery({
-    queryKey: ['todo', id],
-    queryFn: () => fetchOneTodo(id!)
-  });
+  const { id } = useParams<{ id: string }>(); // Fetch the id from the URL params
+  if (!id) throw 'id not found';
+
+  const { data: todo, isLoading, error } = useTodo(id);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      {isPending && <div>...Loading</div>}
+      {isLoading && <div>...Loading</div>}
       {error && <div>{error.message}</div>}
-      {data && (
+      {todo && (
         <Card className="max-w-md mx-auto mt-10 shadow-lg">
-          <CardHeader className="bg-blue-500 text-white p-4">
-            <CardTitle className="text-2xl font-bold">{data.title}</CardTitle>
+          <CardHeader className=" p-4">
+            <CardTitle className="text-2xl font-bold">{todo.title}</CardTitle>
+            <hr />
           </CardHeader>
           <CardContent className="p-4">
-            <CardDescription className="text-gray-700">{data.description}</CardDescription>
+            <CardDescription className="text-gray-700">{todo.description}</CardDescription>
           </CardContent>
         </Card>
       )}
