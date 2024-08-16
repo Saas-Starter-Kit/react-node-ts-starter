@@ -10,7 +10,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => {
   return (
     <div className="space-y-4">
       {todos.map((todo: Todo) => (
-        <BasicCard key={todo.id} title={todo.title} description={todo.description} />
+        <BasicCard key={todo.id} id={todo.id} title={todo.title} description={todo.description} />
       ))}
     </div>
   );

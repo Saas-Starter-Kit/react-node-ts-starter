@@ -1,13 +1,13 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import router from './services/router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import RoutesPage from './services/Router';
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <div>
-      <RouterProvider router={router} />
-      <div>
-        <div>React starter</div>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <RoutesPage />
+      </QueryClientProvider>
     </div>
   );
 }

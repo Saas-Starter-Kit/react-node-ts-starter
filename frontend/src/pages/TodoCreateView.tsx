@@ -1,5 +1,3 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { todoFormSchema, todoFormValues } from '@/types/validations';
 import { useForm } from 'react-hook-form';
@@ -15,9 +13,10 @@ import {
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { CreateTodo } from '@/lib/API/Database/todos/mutations';
+import { postTodo } from '@/api/todo';
 import { toast } from 'react-toastify';
 import { errorMessageGeneral } from '@/utils/constants';
+import { TodoCreate } from '@/types/types';
 
 export default function TodosCreateForm() {
   const form = useForm<todoFormValues>({
@@ -37,10 +36,10 @@ export default function TodosCreateForm() {
   const onSubmit = async (values: todoFormValues) => {
     const title = values.title;
     const description = values.description;
-    const props = { title, description };
+    const props: TodoCreate = { title, description };
 
     try {
-      await CreateTodo(props);
+      await postTodo(props);
     } catch (err) {
       toast.error(errorMessageGeneral);
       throw err;

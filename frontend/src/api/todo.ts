@@ -1,25 +1,25 @@
 import axiosClient from '../services/axios';
-import { Todo } from '@/types/types';
+import { Todo, TodoCreate } from '@/types/types';
 import { AxiosResponse } from 'axios';
 
-export const fetchAllPolygons = async (): Promise<Todo[]> => {
-  const res: AxiosResponse<Todo[]> = await axiosClient.get('/all-polygons');
+export const fetchAllTodos = async (): Promise<Todo[]> => {
+  const res: AxiosResponse<Todo[]> = await axiosClient.get('/todos');
   return res.data;
 };
 
-//export const fetchOnePolygon = async (id: string): Promise<Polygon> => {
-//  const res: AxiosResponse<Polygon> = await axiosClient.get(`/polygon/${id}`);
-//  return res.data;
-//};
+export const fetchOneTodo = async (id: string): Promise<Todo> => {
+  const res: AxiosResponse<Todo> = await axiosClient.get(`/todos/${id}`);
+  return res.data;
+};
 
-//export const postPolygon = async (polygonData: Polygon) => {
-//  return await axiosClient.post('/polygon', polygonData);
-//};
+export const postTodo = async (todoData: TodoCreate): Promise<void> => {
+  await axiosClient.post('/todos', todoData);
+};
 
-//export const putPolygon = async (polygonData: Polygon) => {
-//  return await axiosClient.put('/polygon', polygonData);
-//};
+export const putTodo = async (todoData: Todo): Promise<void> => {
+  await axiosClient.put(`/todos/${todoData.id}`, todoData);
+};
 
-//export const deletePolygon = async (id: string) => {
-//  return await axiosClient.delete(`/polygon/${id}`);
-//};
+export const deleteTodo = async (id: string): Promise<void> => {
+  await axiosClient.delete(`/todos/${id}`);
+};

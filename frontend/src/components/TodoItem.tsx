@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 
 interface TodoCardProps {
+  id: string;
   title: string;
   description: string;
 }
