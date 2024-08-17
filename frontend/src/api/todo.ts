@@ -12,8 +12,9 @@ export const fetchOneTodo = async (id: string): Promise<Todo> => {
   return res.data;
 };
 
-export const postTodo = async (todoData: TodoCreate): Promise<void> => {
-  await axiosClient.post('/todo', todoData);
+export const postTodo = async (todoData: TodoCreate): Promise<Todo> => {
+  const res = await axiosClient.post('/todo', todoData);
+  return res.data;
 };
 
 export const putTodo = async (todoData: Todo): Promise<void> => {

@@ -17,8 +17,12 @@ import { postTodo } from '@/api/todo';
 import { toast } from 'react-toastify';
 import { errorMessageGeneral } from '@/utils/constants';
 import { TodoCreate } from '@/types/types';
+import { useMutation } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function TodosCreateForm() {
+  const queryClient = useQueryClient();
+
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
@@ -33,19 +37,25 @@ export default function TodosCreateForm() {
     formState: { isSubmitting }
   } = form;
 
+  const mutation = useMutation({
+    mutationFn: postTodo,
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success('Todo updated successfully');
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+    onError: () => {
+      toast.error(errorMessageGeneral);
+    }
+  });
+
   const onSubmit = async (values: todoFormValues) => {
     const title = values.title;
     const description = values.description;
     const props: TodoCreate = { title, description };
 
-    try {
-      await postTodo(props);
-    } catch (err) {
-      toast.error(errorMessageGeneral);
-      throw err;
-    }
+    mutation.mutate(props);
 
-    toast.success('Todo Submitted');
     reset({ title: '', description: '' });
   };
 

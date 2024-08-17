@@ -19,17 +19,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { putTodo } from '@/api/todo';
 import { toast } from 'react-toastify';
 import { errorMessageGeneral } from '@/utils/constants';
-import { useTodo } from '@/hooks/useTodo';
+
 import { Todo } from '@/types/types';
 
 export default function EditTodoForm() {
   const { id } = useParams<{ id: string }>(); // Fetch the id from the URL params
   if (!id) throw 'id not found';
 
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: todo } = useTodo(id);
+  const cachedData: Todo[] | undefined = queryClient.getQueryData(['todos']);
+  const todo = cachedData?.find((todo) => todo.id === id);
 
   const form = useForm<todoFormValues>({
     resolver: zodResolver(todoFormSchema),
@@ -57,8 +57,11 @@ export default function EditTodoForm() {
 
   const mutation = useMutation({
     mutationFn: putTodo,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
+
       toast.success('Todo updated successfully');
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
       queryClient.invalidateQueries({ queryKey: ['todo', id] });
     },
     onError: () => {
